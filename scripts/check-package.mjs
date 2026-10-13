@@ -7,6 +7,9 @@ import { createRequire } from 'node:module';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
 const { listPackage, extractFile } = require('@electron/asar');
+// ASAR's lookup splits by the host OS separator, while the inventory below is
+// normalized to forward slashes for comparisons. Convert back for extraction.
+const extractAppFile = filename => extractFile(asar, path.normalize(filename));
 const appDirectory = path.join(root, 'release/win-unpacked');
 const asar = path.join(appDirectory, 'resources/app.asar');
 const releaseFiles = await fs.readdir(path.join(root, 'release'));
@@ -48,12 +51,12 @@ assert(!files.some(name => /(?:^|\/)(?:CareManager\.sqlite|connection\.json|\.en
 let synchronizedFiles = 0;
 for (const filename of files.filter(name => /^(?:dist|electron|server)\//.test(name))) {
   if (!(await fs.stat(path.join(root, filename))).isFile()) continue;
-  assert.deepEqual(extractFile(asar, filename), await fs.readFile(path.join(root, filename)), `Packaged file differs from the current build/source: ${filename}`);
+  assert.deepEqual(extractAppFile(filename), await fs.readFile(path.join(root, filename)), `Packaged file differs from the current build/source: ${filename}`);
   synchronizedFiles++;
 }
-const manifest = JSON.parse(extractFile(asar, 'package.json').toString('utf8'));
+const manifest = JSON.parse(extractAppFile('package.json').toString('utf8'));
 assert.equal(manifest.main, 'electron/main.cjs');
-const index = extractFile(asar, 'dist/index.html').toString('utf8');
+const index = extractAppFile('dist/index.html').toString('utf8');
 assert(/Content-Security-Policy/i.test(index), 'Packaged renderer must specify a Content Security Policy.');
 assert(!/(?:src|href)="\/assets\//.test(index), 'Vite assets must use relative paths for the installed desktop app.');
 console.log(`Package check passed: ${installers.join(', ')}; ${files.length} packaged entries; ${synchronizedFiles} app files match current sources/build${process.platform === 'linux' ? '; NSIS uninstaller headers and signature verified' : ''}. Actual Windows runtime validation is pending.`);

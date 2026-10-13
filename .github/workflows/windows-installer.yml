@@ -36,7 +36,7 @@ jobs:
       - name: Run application tests
         run: npm test
       - name: Build and verify the Windows installer
-        run: npm run package:windows
+        run: npm run ci:package:windows
       - name: Verify packaged Electron SQLite on Windows
         run: node scripts/check-windows-runtime.mjs
       - name: Bundle installer and instructions

@@ -1,0 +1,216 @@
+{
+  "checks": [
+    {
+      "name": "Login and authenticated dashboard",
+      "passed": true
+    },
+    {
+      "name": "Resident edit persisted",
+      "passed": true
+    },
+    {
+      "name": "Consent status transitions sent to received",
+      "passed": true
+    },
+    {
+      "name": "PDF notice-round1",
+      "passed": true,
+      "details": {
+        "pages": 1,
+        "expected_pages": 1,
+        "text_length": 348
+      }
+    },
+    {
+      "name": "PDF notice-round2",
+      "passed": true,
+      "details": {
+        "pages": 1,
+        "expected_pages": 1,
+        "text_length": 293
+      }
+    },
+    {
+      "name": "Round 2 document selects its stored meeting date",
+      "passed": true
+    },
+    {
+      "name": "PDF consents",
+      "passed": true,
+      "details": {
+        "pages": 2,
+        "expected_pages": 2,
+        "text_length": 485
+      }
+    },
+    {
+      "name": "Consent PDF uses full date snapshots over new year",
+      "passed": true
+    },
+    {
+      "name": "Document target selection controls output",
+      "passed": true
+    },
+    {
+      "name": "PDF restraint",
+      "passed": true,
+      "details": {
+        "pages": 2,
+        "expected_pages": 2,
+        "text_length": 690
+      }
+    },
+    {
+      "name": "Restraint includes front and back with blank clinical fields",
+      "passed": true
+    },
+    {
+      "name": "Print dialog return does not automatically mark printed",
+      "passed": true
+    },
+    {
+      "name": "Explicit print date recording persists through UI",
+      "passed": true
+    },
+    {
+      "name": "Uncertain dates block consent output and edit restores it",
+      "passed": true
+    },
+    {
+      "name": "PDF notice-multiple-dates",
+      "passed": true,
+      "details": {
+        "pages": 2,
+        "expected_pages": 2,
+        "text_length": 587
+      }
+    },
+    {
+      "name": "Mixed meeting dates produce separate pages",
+      "passed": true
+    },
+    {
+      "name": "Meeting date selector narrows document targets",
+      "passed": true
+    },
+    {
+      "name": "Logout and login retain saved synthetic records",
+      "passed": true
+    },
+    {
+      "name": "Latest settings revision accepted through UI",
+      "passed": true
+    },
+    {
+      "name": "PDF consents-original-body",
+      "passed": true,
+      "details": {
+        "pages": 2,
+        "expected_pages": 2,
+        "text_length": 1123,
+        "content_bottoms_pt": [
+          718.4,
+          718.4
+        ]
+      }
+    },
+    {
+      "name": "Original long consent fallback fits one A4 page per person",
+      "passed": true
+    },
+    {
+      "name": "PDF restraint-original-body",
+      "passed": true,
+      "details": {
+        "pages": 2,
+        "expected_pages": 2,
+        "text_length": 1071,
+        "content_bottoms_pt": [
+          718.4,
+          805.4
+        ]
+      }
+    },
+    {
+      "name": "Original front and restraint back are exactly two A4 pages",
+      "passed": true
+    },
+    {
+      "name": "Print and browser PDF buttons preserve print date until explicit record",
+      "passed": true
+    },
+    {
+      "name": "No console errors including favicon, and no page errors",
+      "passed": true
+    },
+    {
+      "name": "Oversized consent blocks print and PDF while preserving preview",
+      "passed": true
+    },
+    {
+      "name": "Oversized restraint back blocks output without render-measure loop",
+      "passed": true
+    },
+    {
+      "name": "Restoring original body restores output and remains exactly two pages",
+      "passed": true
+    },
+    {
+      "name": "No page or console errors during overflow recovery",
+      "passed": true
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "requests_failed": [],
+  "pdfs": {
+    "notice-round1": {
+      "pages": 1,
+      "expected_pages": 1,
+      "text_length": 348
+    },
+    "notice-round2": {
+      "pages": 1,
+      "expected_pages": 1,
+      "text_length": 293
+    },
+    "consents": {
+      "pages": 2,
+      "expected_pages": 2,
+      "text_length": 485
+    },
+    "restraint": {
+      "pages": 2,
+      "expected_pages": 2,
+      "text_length": 690
+    },
+    "notice-multiple-dates": {
+      "pages": 2,
+      "expected_pages": 2,
+      "text_length": 587
+    },
+    "consents-original-body": {
+      "pages": 2,
+      "expected_pages": 2,
+      "text_length": 1123,
+      "content_bottoms_pt": [
+        718.4,
+        718.4
+      ]
+    },
+    "restraint-original-body": {
+      "pages": 2,
+      "expected_pages": 2,
+      "text_length": 1071,
+      "content_bottoms_pt": [
+        718.4,
+        805.4
+      ]
+    }
+  },
+  "print_call_count": 1,
+  "passed": true,
+  "resolved_issues": [
+    "Missing favicon caused the sole previous console 404; public icon now verifies without errors."
+  ]
+}

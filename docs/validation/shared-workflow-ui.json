@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "name": "Initial setup in packaged production UI",
+      "passed": true
+    },
+    {
+      "name": "Consecutive settings saves refresh the editing revision",
+      "passed": true
+    },
+    {
+      "name": "Duplicate account error keeps the form and entered values",
+      "passed": true
+    },
+    {
+      "name": "Backup restore UI preserves accounts and restores linked records",
+      "passed": true
+    },
+    {
+      "name": "Invalid resident period is rejected without losing the editing form",
+      "passed": true
+    },
+    {
+      "name": "Balanced batch UI splits new residents into both meeting groups",
+      "passed": true
+    },
+    {
+      "name": "Two users cannot overwrite resident changes and the losing edit remains",
+      "passed": true
+    },
+    {
+      "name": "Stale office settings are protected and explicit reload permits retry",
+      "passed": true
+    },
+    {
+      "name": "Own password change signs out cleanly and the new password works",
+      "passed": true
+    },
+    {
+      "name": "Production UI has no unexpected page or console errors",
+      "passed": true
+    }
+  ],
+  "page_errors": [],
+  "unexpected_console_errors": [],
+  "passed": true
+}

@@ -1,0 +1,59 @@
+name: Build Windows installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/windows-installer.yml'
+      - 'package*.json'
+      - 'electron/**'
+      - 'server/**'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'index.html'
+      - 'tsconfig.json'
+      - 'vite.config.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install pinned dependencies
+        run: npm ci
+      - name: Run application tests
+        run: npm test
+      - name: Build and verify the Windows installer
+        run: npm run package:windows
+      - name: Verify packaged Electron SQLite on Windows
+        run: node scripts/check-windows-runtime.mjs
+      - name: Bundle installer and instructions
+        shell: pwsh
+        run: |
+          $deliveryDir = 'release\delivery'
+          New-Item -ItemType Directory -Path $deliveryDir -Force | Out-Null
+          Copy-Item 'release\CareManager Setup 0.1.0.exe' "$deliveryDir\CareManager-Setup-0.1.0.exe"
+          Copy-Item 'README-WINDOWS.md' "$deliveryDir\INSTALL-ja.md"
+          Copy-Item 'release\windows-artifact.json' "$deliveryDir\windows-artifact.json"
+          Copy-Item 'release\electron-windows-runtime-check.json' "$deliveryDir\electron-windows-runtime-check.json"
+          $installerHash = (Get-FileHash "$deliveryDir\CareManager-Setup-0.1.0.exe" -Algorithm SHA256).Hash.ToLower()
+          "$installerHash  CareManager-Setup-0.1.0.exe" | Set-Content "$deliveryDir\SHA256SUMS.txt" -Encoding utf8
+      - name: Provide downloadable installer ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: CareManager-Windows-0.1.0
+          path: release/delivery/
+          if-no-files-found: error
+          retention-days: 30
